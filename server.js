@@ -22,9 +22,11 @@ const wss = new WebSocketServer({
     // should not be compressed if context takeover is disabled.
   }
 });
-wss.on('connection', function cunnection(ws){
-    ws.on('message', function message(data) {
-        console.log('received %s', data);
-    });
-    ws.send('someghing');
+
+wss.on('connection', function connection(ws) {
+  ws.on('message', function message(data) {
+    console.log('received: %s', data);
+  });
+
+  ws.send('something');
 });
