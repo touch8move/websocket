@@ -1,30 +1,18 @@
-import WebSocket, { WebSocketServer } from 'ws';
+import { WebSocketServer } from 'ws';
 
-const wss = new WebSocketServer({
-  port: 8080,
-  perMessageDeflate: {
-    zlibDeflateOptions: {
-      // See zlib defaults.
-      chunkSize: 1024,
-      memLevel: 7,
-      level: 3
-    },
-    zlibInflateOptions: {
-      chunkSize: 10 * 1024
-    },
-    // Other options settable:
-    clientNoContextTakeover: true, // Defaults to negotiated value.
-    serverNoContextTakeover: true, // Defaults to negotiated value.
-    serverMaxWindowBits: 10, // Defaults to negotiated value.
-    // Below options specified as default values.
-    concurrencyLimit: 10, // Limits zlib concurrency for perf.
-    threshold: 1024 // Size (in bytes) below which messages
-    // should not be compressed if context takeover is disabled.
-  }
-});
-wss.on('connection', function cunnection(ws){
-    ws.on('message', function message(data) {
-        console.log('received %s', data);
-    });
-    ws.send('someghing');
+const wss = new WebSocketServer({ port: 9999 });
+// var clients = [];
+wss.on('connection', function connection(ws, req) {
+  // clients.push(ws);
+  ws.on('message', function message(data) {
+    console.log('received: %s', data);
+  });
+
+  console.log('connected '+Date.now()+" id:");
+  ws.on('pong', function(){console.log('pong');});
+
+  ws.on('close', function close(){
+    console.log('disconnected');
+  });
+
 });
