@@ -14,5 +14,4 @@ wss.on('connection', function connection(ws, req) {
   ws.on('close', function close(){
     console.log('disconnected');
   });
-
 });
