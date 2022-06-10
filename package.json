@@ -6,10 +6,12 @@
     "main": "server.js",
     "type": "module",
     "scripts": {
-      "start": "node server.js"
+      "start": "pm2 start server.js"
     },
     "dependencies": {
-      "ws":"^8.7.0"
+      "ws":"8.7.0",
+      "pm2":"5.2.0",
+      "mariadb":"3.0.0"
     },
     "type":"module"
   }

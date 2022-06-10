@@ -2,7 +2,21 @@ version: '3.8'
 services:
   app:
     build: .
+    depends_on:
+      - db
     ports: 
       - 9999:9999
-    
+  db:
+    image: mariadb
+    ports:
+      - 4306:3306
+    volumes:
+      - ./table.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data:/var/lib/mysql
+    environment:
+      - MARIADB_PORT=3306
+      - MYSQL_ROOT_PASSWORD=password
+      - MARIADB_DATABASE=websocket
+      - TZ=Asia/Seoul
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
     
